@@ -1,0 +1,22 @@
+name: "Run Container Scan on Super Mario Docker Image"
+
+on:
+    push:
+        branches: [ "main" ]
+    workflow_dispatch:
+
+jobs:
+    container_scan:
+        runs-on: ubuntu-latest
+    
+        steps:
+        - name: Checkout Repository
+          uses: actions/checkout@v4
+    
+        - name: Run Trivy Container Scan
+          uses: aquasecurity/trivy-action@master
+          with:
+            image-ref: docker.io/nehas1908/supermariogitopsproject:v2
+            exit-code: true
+            format: table
+            severity: HIGH,CRITICAL
