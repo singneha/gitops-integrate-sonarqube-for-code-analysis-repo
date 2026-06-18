@@ -20,3 +20,9 @@ jobs:
             exit-code: true
             format: table
             severity: HIGH,CRITICAL
+        
+        - name: Upload Trivy Scan Results
+          uses: actions/upload-artifact@v3
+          with:
+                name: trivy-scan-results
+                path: trivy-results.csv
