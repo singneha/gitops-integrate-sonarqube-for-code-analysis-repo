@@ -1,3 +1,6 @@
+permissions:
+  security-events: write  # <-- Required for uploading SARIF data
+  
 name: "Run Container Scan on Super Mario Docker Image"
 
 on:
