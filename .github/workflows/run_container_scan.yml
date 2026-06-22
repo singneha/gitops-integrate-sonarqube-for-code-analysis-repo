@@ -16,7 +16,7 @@ jobs:
         - name: Run Trivy Container Scan
           uses: aquasecurity/trivy-action@master
           with:
-            image-ref: docker.io/nehas1908/supermariogitopsproject:v7
+            image-ref: docker.io/nehas1908/supermariogitopsproject:v${{ github.run_number }}
             exit-code: true
             severity: HIGH,CRITICAL
             format: 'sarif'

@@ -52,7 +52,6 @@ jobs:
           git pull origin main
           echo "Updating deployment and version files with version ${{ env.NEW_VERSION}}"
           sed -i "s|image: docker.io/nehas1908/supermariogitopsproject:.*$|image: docker.io/nehas1908/supermariogitopsproject:v${{ env.NEW_VERSION}}|" deployment.yaml
-          sed -i "s|image: docker.io/nehas1908/supermariogitopsproject:.*$|image: docker.io/nehas1908/supermariogitopsproject:v${{ env.NEW_VERSION}}|" .github/workflows/run_container_scan.yml
           echo ${{ env.NEW_VERSION}} > version.txt
           git add deployment.yaml version.txt .github/workflows/run_container_scan.yml
           # LOOP PREVENTION: [skip ci] tells GitHub to completely ignore this specific commit when it comes to triggering any workflows. This is crucial to prevent an infinite loop of commits and workflow runs.
