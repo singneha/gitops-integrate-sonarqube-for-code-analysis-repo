@@ -1,0 +1,47 @@
+name: "Run SAST, Build and push supermario image, scan image, Update deployment and version txt files"
+
+on:
+  # push:
+  #   branches:
+  #     - main
+  workflow_dispatch:
+
+jobs:
+  trigger-sonarqube-scan:
+    uses: ./.github/workflows/gitops.yml
+
+  build-and-push-image:
+    needs: trigger-sonarqube-scan
+    uses: ./.github/workflows/buildandpushdockerimage.yml
+    with:
+      VERSION: ${{ github.run_number }}
+
+  container-scan:
+    needs: build-and-push-image
+    uses: ./.github/workflows/run_container_scan.yml
+
+  update-deployment-and-version:
+    runs-on: ubuntu-latest
+    needs: container-scan
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set Git Config
+        run: |
+           git config --global user.name "github-actions[bot]"
+           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com" 
+
+      - name: Update Deployment and Version Files
+        env:
+          NEW_VERSION: ${{ github.run_number }}
+        run: |
+          git pull origin main
+          echo "Updating deployment and version files with version ${{ env.NEW_VERSION}}"
+          sed -i "s|image: raghuthesecurityexpert/supermariogitopsproject:.*$|image: raghuthesecurityexpert/supermariogitopsproject:${{ env.NEW_VERSION}}|" deployment.yaml
+          echo ${{ env.NEW_VERSION}} > version.txt
+          git add deployment.yaml version.txt
+          # LOOP PREVENTION: [skip ci] tells GitHub to completely ignore this specific commit when it comes to triggering any workflows. This is crucial to prevent an infinite loop of commits and workflow runs.
+          git commit -m "Update deployment and version files to version ${{ env.NEW_VERSION}} [skip ci]"
+          git push origin main

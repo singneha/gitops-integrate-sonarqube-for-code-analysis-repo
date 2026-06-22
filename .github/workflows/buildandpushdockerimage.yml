@@ -1,15 +1,19 @@
 name: "Build and Push Docker Image"
 
 on:
+  workflow_call:
+    inputs:
+      VERSION:
+        required: true
+        type: string
 #     push:
 #         branches: [ "main" ]
 #     # pull_request:
 #     #     branches: [ "main" ]
 
-     workflow_dispatch:
 
-env:
-  VERSION: $(( $(cat version.txt) + 1 ))
+# env:
+#   VERSION: $(( $(cat version.txt) + 1 ))
 
 jobs:
     build:
@@ -33,4 +37,4 @@ jobs:
           with:
             context: .
             push: true
-            tags: docker.io/nehas1908/supermariogitopsproject:v${{ env.VERSION }}
+            tags: docker.io/nehas1908/supermariogitopsproject:v${{ inputs.VERSION }}

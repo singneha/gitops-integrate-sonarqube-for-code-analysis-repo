@@ -16,7 +16,7 @@ spec:
       - name: supermariogitopsproject-container
         image: docker.io/nehas1908/supermariogitopsproject:v2
         ports:
-        - containerPort: 8080 # Informational, matches the application port for developer's reference. This is not the port that will be exposed externally. 
+        - containerPort: 8080 # Informational and for readability , hence this must match the port the actual application inside your container is configured to bind to and listen on.
 ---
 
 apiVersion: v1
@@ -29,5 +29,5 @@ spec:
   ports:
     - protocol: TCP
       port: 80 # service port on which url will be accessible externally.
-      targetPort: 8080  # Pod port mapping for request hopping. MUST match the actual internal application port
+      targetPort: 8080  # The Service's targetPort must target the port where the application is actually running. 
   type: LoadBalancer
