@@ -6,6 +6,11 @@ on:
       VERSION:
         required: true
         type: string
+    secrets:
+      DOCKER_USERNAME:
+        required: true
+      DOCKER_TOKEN:
+        required: true
 #     push:
 #         branches: [ "main" ]
 #     # pull_request:

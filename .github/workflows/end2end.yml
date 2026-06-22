@@ -9,12 +9,18 @@ on:
 jobs:
   trigger-sonarqube-scan:
     uses: ./.github/workflows/gitops.yml
+    secrets:
+      SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   build-and-push-image:
     needs: trigger-sonarqube-scan
     uses: ./.github/workflows/buildandpushdockerimage.yml
     with:
       VERSION: ${{ github.run_number }}
+    secrets:
+      DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
+      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
 
   container-scan:
     needs: build-and-push-image

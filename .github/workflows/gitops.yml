@@ -5,6 +5,11 @@ name: "Reusable SAST Scan child workflow"
 # Controls when the workflow will run
 on:
   workflow_call:
+    secrets:
+      SONAR_HOST_URL:
+        required: true
+      SONAR_TOKEN:
+        required: true
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
