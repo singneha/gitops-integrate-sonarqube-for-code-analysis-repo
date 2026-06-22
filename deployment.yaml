@@ -14,7 +14,7 @@ spec:
     spec:
       containers: 
       - name: supermariogitopsproject-container
-        image: docker.io/nehas1908/supermariogitopsproject:v2
+        image: docker.io/nehas1908/supermariogitopsproject:6
         ports:
         - containerPort: 8080 # Informational and for readability , hence this must match the port the actual application inside your container is configured to bind to and listen on.
 ---
