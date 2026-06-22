@@ -1,4 +1,4 @@
-# GitOps SonarQube Integration
+# End to End GitOps with ArgoCD and AKS
 
 This repository contains a sample application and the necessary configuration to demonstrate **GitOps** workflows using **Argo CD**. The goal is to enable Argo CD to automatically sync changes from this Git repository to a Kubernetes cluster, while also integrating SonarQube for code quality analysis.
 
