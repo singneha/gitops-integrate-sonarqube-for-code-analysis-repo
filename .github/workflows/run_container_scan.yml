@@ -1,8 +1,8 @@
 name: "Run Container Scan on Super Mario Docker Image"
 
 on:
-    push:
-        branches: [ "main" ]
+#     push:
+#         branches: [ "main" ]
     workflow_dispatch:
 
 jobs:

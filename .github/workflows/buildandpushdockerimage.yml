@@ -7,7 +7,10 @@ on:
 #     #     branches: [ "main" ]
 
      workflow_dispatch:
-    
+
+env:
+  VERSION: $(( $(cat version.txt) + 1 ))
+
 jobs:
     build:
         runs-on: ubuntu-latest
@@ -30,4 +33,4 @@ jobs:
           with:
             context: .
             push: true
-            tags: docker.io/nehas1908/supermariogitopsproject:v2
+            tags: docker.io/nehas1908/supermariogitopsproject:v${{ env.VERSION }}
