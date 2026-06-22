@@ -12,14 +12,11 @@ jobs:
           security-events: write # <-- Placed correctly inside the job context
           contents: read         # <-- Good practice: allows action to read repository contents
     
-        steps:
-        - name: Checkout Repository
-          uses: actions/checkout@v4
-    
+        steps:  
         - name: Run Trivy Container Scan
           uses: aquasecurity/trivy-action@master
           with:
-            image-ref: docker.io/nehas1908/supermariogitopsproject:v2
+            image-ref: docker.io/nehas1908/supermariogitopsproject:v7
             exit-code: true
             severity: HIGH,CRITICAL
             format: 'sarif'
