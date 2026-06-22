@@ -19,6 +19,9 @@ jobs:
   container-scan:
     needs: build-and-push-image
     uses: ./.github/workflows/run_container_scan.yml
+    permissions:
+      security-events: write
+      contents: read
 
   update-deployment-and-version:
     runs-on: ubuntu-latest
